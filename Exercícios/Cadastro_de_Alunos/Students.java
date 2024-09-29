@@ -1,4 +1,4 @@
-package Exercícios.Cadastro_de_Alunos.src;
+package Exercícios.Cadastro_de_Alunos;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
