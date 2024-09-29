@@ -31,12 +31,13 @@ class EmployeePrinter{
 
 class InputManager{
     private Scanner scanner;
-
+    
     public InputManager(Scanner leitor){
         this.scanner = leitor;
     }
 
     public String getEmployeeName(int employeeNumber){
+        scanner.nextLine();
         System.out.print(String.format("Digite o nome do %d° funcionário: ", employeeNumber + 1));
         return scanner.nextLine();
     }
@@ -44,7 +45,7 @@ class InputManager{
     public int getEmployeeID(int employeeNumber){
         int employeeID;
         do {
-            System.out.print(String.format("Digite o ID do %d funcionário: ", employeeNumber));
+            System.out.print(String.format("Digite o ID do %d° funcionário: ", employeeNumber + 1));
             while(!scanner.hasNextInt()){
                 System.out.println("ERRO DO ID! Tente novamente.");
                 scanner.next();
