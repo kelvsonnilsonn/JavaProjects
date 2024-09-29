@@ -1,4 +1,4 @@
-package Exercícios.Cadastro_de_Funcionarios.src;
+package Exercícios.Cadastro_de_Funcionarios;
 
 import java.util.Scanner;
 import java.util.List;
@@ -29,43 +29,56 @@ class EmployeePrinter{
     }
 }
 
-class RegisterNewEmployee{
-    public static void registerEmployer(List<Funcionario> employeeList ,int employeeQuantity){
+class InputManager{
+    private Scanner scanner;
 
-        Scanner leitor = new Scanner(System.in);
+    public InputManager(Scanner leitor){
+        this.scanner = leitor;
+    }
+
+    public String getEmployeeName(int employeeNumber){
+        System.out.print(String.format("Digite o nome do %d° funcionário: ", employeeNumber + 1));
+        return scanner.nextLine();
+    }
+
+    public int getEmployeeID(int employeeNumber){
+        int employeeID;
+        do {
+            System.out.print(String.format("Digite o ID do %d funcionário: ", employeeNumber));
+            while(!scanner.hasNextInt()){
+                System.out.println("ERRO DO ID! Tente novamente.");
+                scanner.next();
+            }
+            employeeID = scanner.nextInt();
+        } while (employeeID < 0);
+        scanner.nextLine();
+        return employeeID;
+    }
+
+    public float getEmployeeWage(String employeeName){
+        float employeeWage;
+        do {
+            System.out.print(String.format("Digite o salário do funcionario %s: ", employeeName));
+            while(!scanner.hasNextFloat()){
+                System.out.println("ERRO DO SALÁRIO! Tente novamente.");
+                scanner.next();
+            }
+            employeeWage = scanner.nextFloat();
+        } while(employeeWage < 0);
+        return employeeWage;
+    }
+}
+
+class RegisterNewEmployee{
+    public static void registerEmployer(List<Funcionario> employeeList ,int employeeQuantity, Scanner leitor){
+
+        InputManager inputmanager = new InputManager(leitor);
 
         for(int i = 0; i<employeeQuantity; i++){
-
-            System.out.print(String.format("Digite o nome do %d° funcionario: ", i+1));
-            String employeeName = leitor.nextLine();
-        
-            int employeeID;
-            do{
-                System.out.print(String.format("Digite o ID do %d° funcionario: ", i+1));
-
-                while (!leitor.hasNextInt()){
-                    System.out.println("ID INVÁLIDO! Tente novamente."); // Tratamento de erro caso ID INVÁLIDO.
-                    leitor.next();
-                }
-
-                employeeID = leitor.nextInt();
-            } while(employeeID < 0);
-
-            float employeeWage;
-            do{
-                System.out.print(String.format("Digite o salário do funcionario %s: ", employeeName));
-                
-                while(!leitor.hasNextFloat()){
-                    System.out.println("SALÁRIO INVÁLIDO! Tente novamente."); // Tratamento de erro caso SALÁRIO INVÁLIDO.
-                    leitor.next();
-                }
-
-                employeeWage = leitor.nextFloat();
-            } while(employeeWage < 0);
-
+            String employeeName = inputmanager.getEmployeeName(i);
+            int employeeID = inputmanager.getEmployeeID(i);
+            float employeeWage = inputmanager.getEmployeeWage(employeeName);
             employeeList.add(new Funcionario(employeeName, employeeID, employeeWage));
-
-            leitor.nextLine();
         }
     }
 }
@@ -79,7 +92,7 @@ public class Employee {
         System.out.print("Digite a quantidade de funcionarios: ");
         int employeeQuantity = leitor.nextInt();
 
-        RegisterNewEmployee.registerEmployer(employeeList, employeeQuantity);
+        RegisterNewEmployee.registerEmployer(employeeList, employeeQuantity, leitor);
         EmployeePrinter.printEmployeers(employeeList);
         leitor.close();
     }
