@@ -1,7 +1,5 @@
 package Exercícios.Cadastro_de_Alunos.StudentsStruct;
 
-import Exercícios.Cadastro_de_Alunos.Students;
-
 public class Student {
 
     public static final int MAX_GRADE = 2;
@@ -34,12 +32,5 @@ public class Student {
         }
 
         return sb.toString();
-    }
-
-    public static void main(String[] args){
-        Student obj = new Student("PEDRO", 1982, new float[]{2.3f, 29f}, MAX_GRADE);
-        String avocado = obj.toString();
-
-        System.out.println(avocado);
     }
 }

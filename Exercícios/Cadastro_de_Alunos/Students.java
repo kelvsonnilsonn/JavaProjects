@@ -1,47 +1,11 @@
 package Exercícios.Cadastro_de_Alunos;
 import java.util.Scanner;
+
+import Exercícios.Cadastro_de_Alunos.StudentsStruct.Student;
+import Exercícios.Cadastro_de_Alunos.StudentUtils.StudentPrint;
+
 import java.util.ArrayList;
 import java.util.List;
-
-class Student{
-
-    public static final int MAX_GRADE = 2;
-
-    String studentName;
-    int studentID;
-    float[] semesterGrade = new float[MAX_GRADE];
-    float avarageGrade;
-
-    public Student(String name, int ID, float[] grades, float avg){
-        this.studentName = name;
-        this.studentID = ID;
-        this.semesterGrade = grades;
-        this.avarageGrade = avg;
-    }
-
-    @Override
-    public String toString(){
-        StringBuilder string = new StringBuilder();
-
-        string.append("Nome: ").append(studentName).append(", ID: ").append(studentID);
-
-        for(int i = 0; i<MAX_GRADE; i++){
-            string.append(String.format(", %d° nota: %.1f", i+1, semesterGrade[i]));
-        }
-
-        string.append(", média: ").append(avarageGrade);
-
-        return string.toString();
-    }
-}
-
-class studentsPrinter{
-    public static void printStudent(List<Student> studentList){
-        for(Student aluno: studentList){
-            System.out.println(aluno);
-        }
-    }
-}
 
 public class Students {
     public static void main(String[] args){
@@ -78,6 +42,6 @@ public class Students {
 
         leitor.close();
 
-        studentsPrinter.printStudent(studentList);
+        StudentPrint.printStudent(studentList);
     }
 }
